@@ -1,15 +1,25 @@
 {application, gutenberg_filter, [
     {description, "em_filter agent for Project Gutenberg ebook search"},
     {vsn, "0.1.0"},
-    {registered, []},
+    {registered, [gutenberg_filter_sup, gutenberg_filter_server]},
     {mod, {gutenberg_filter_app, []}},
     {applications, [
         kernel,
         stdlib,
+        ssl,
+        inets,
+        cowboy,
         em_filter
     ]},
-    {env, []},
-    {modules, []},
+    {env, [
+        {pop_port,   0},
+        {query_port, 0},
+        {pop_seeds,  []}
+    ]},
+    {modules, [
+        gutenberg_filter_sup,
+        gutenberg_filter_server
+    ]},
     {licenses, ["Apache-2.0"]},
     {links, [{"GitHub", "https://github.com/EmergenceSystem/gutenberg_filter"}]}
 ]}.
